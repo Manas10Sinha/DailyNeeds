@@ -1,0 +1,59 @@
+{%extends 'base.html'%}
+{% block title %}
+This is about title
+{% endblock title %}
+{% block body%}
+</head>
+  <style>
+        .custom-margin{
+              margin-top:20vh;
+        }
+        body{
+             background-image:url('/static/b2.jpeg');
+             background-repeat:no-repeat;
+             width: 100%;
+             height:100%;
+        }
+    </style>
+ <style>
+       .success{
+          size=10;
+          color:red;
+          }
+    </style>
+<body>
+<h1>Customer's Profile Page</h1>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <center>
+<h2>Hello!!!....{{name}}</h2><br>
+
+        <h5>   Please give your detail:</h5><br><br>
+    Customer's No.:   <input  type="text" name="cno" value={{user.id}}>
+
+Delivery Address: <input type="text" name="address" >
+Contact No.: <input type="text" name="phone" >
+
+</center>
+    <input type="submit" value="Submit" >
+{% if messages %}
+    {% for message in messages %}
+       <small {{ message.tags }} class="{{ message.tags }} " >
+          {{ message }}</small>
+    {% endfor %}
+    {% endif %}
+
+<a href="{% url 'index' %}"><< Previous  </a><br>
+<a href="{% url 'profile' %}">Next >> </a><br>
+<a href="{% url 'user_logout' %}">Logout  </a>
+
+</form>
+
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<font face="arial" size="4" color="cyan">
+  </h3><u>Registered office:</u> COLLECTION Zone MART,Near Takrohi Petrol pump,
+    Indira Nagar, Lucknow<br></font>
+{% endblock body %}
+

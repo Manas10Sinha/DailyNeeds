@@ -1,0 +1,92 @@
+{%extends 'base.html'%}
+{% block title %}
+This is about title
+{% endblock title %}
+{% block body%}
+
+
+{% load custom_filter %}
+
+{% load cart %}
+  <div class="container-fluid mt-3 ">
+      <div class="row">
+          <!--<div class="col-lg-2 mx-auto">
+            <div class="list-group">
+                   <a href="/" class="list-group-item list-group-item-action" >All Products </a>
+                {% for category in categories %}
+                   <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">
+                      {{category.name}}</a>
+                {% endfor %}                        #{{product.id}}
+            </div>
+          </div>-->
+
+          <div id='product' class="col-lg-10 mx-auto">
+              <div class="row mx-auto ">
+
+                  {% for product in products %}
+                  <div class="card mx-auto"  id="{{product.id}}"  style="width: 18rem;">
+                      <img src="/static/cart.jpeg" class="card-img-top"  alt="...">
+                      <div class="card-body">
+                          <h5 class="card-title">{{product.name}}</h5><p class="card-text"><b>{{product.price|currency}}</b><br><small>Discount <font color="green">{{product.oprice|discount:product.price}}%</font></small><s>{{product.oprice|currency}}</s></p>
+                          <p class="card-text"><font color="red"><b>Available at</b></font> {{product.locality}}, <br>{{product.sub_locality}}, <a href="{% url 'shops' %}">{{product.Shop}}</a><br> Contact: {{product.mobile}}<br></p>
+
+                      </div>
+                      <div class="card-footer p-0 ">
+                          {% if product|is_in_cart:request.session.cart %}
+                          <div class="row no-gutters">
+                              <form action="/Shop/#{{product.id}}" class="col-2"   method="post" class="btn-block"  >
+                                  {% csrf_token %}
+                                  <input type="text" hidden  name="product" value="{{product.id}}">
+                                  <input type="text" hidden  name="remove" value="True">
+                                  <input type="submit" value="-" class="col-2 btn btn-block btn-secondary">
+                              </form>
+                              <div class="text-center col">{{product|cart_quantity:request.session.cart}} in Cart </div>
+                              <form action="/Shop/#{{product.id}}" class="col-2"   method="post" class="btn-block">
+                                  {% csrf_token %}
+                                  <input type="text" hidden name="product" value="{{product.id}}">
+                                  <input type="submit" value="+" class="col-2 btn btn-block btn-secondary">
+                              </form>
+                          </div>
+                          {% else %}
+                          <form action="/Shop/#{{product.id}}"   method="post"  class="btn-block">
+                              {% csrf_token %}
+                              <input type="text" hidden name="product" value="{{product.id}}">
+                              <input type="submit" class="float-right btn btn-primary  border btn-sm" value="Add to Cart">
+                          </form>
+                          {% endif %}
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+<div class="container-fluid mt-3 ">
+    <div class="row">
+    <div id='products' class="col-lg-10 mx-auto">
+        <div class="row mx-auto ">
+            {% for product in sort %}
+            <div class="card mx-auto"  style="width: 18rem;">
+                <div class="card-body text-center zoomin2">
+                    <img src="/static/cart.jpeg"   class="card-img-top fluid"  alt="...">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text"><b>{{product.price|currency}}</b><br><small>Discount <font color="green">{{product.oprice|discount:product.price}}%</font></small><s>{{product.oprice|currency}}</s></p>
+                    <p class="card-text"><font color="red"><b>Available at</b></font> {{product.locality}}, <br>{{product.sub_locality}}, {{product.Shop}}<br> Contact: {{product.mobile}}</p>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+      <h5>Minimum: {{minimum}}</h5><br><br>
+      <h5>Count: {{count}}</h5>
+
+
+{%endblock body%}

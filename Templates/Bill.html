@@ -1,0 +1,81 @@
+{%extends 'base.html'%}
+{% block title %}
+This is about title
+{% endblock title %}
+{% block body%}
+
+
+{% load custom_filter%}
+{% load cart %}
+<div class="container-fluid">
+       <div class="border rounded p-4 m-4">
+           <p class="display-4">Mr./Mrs. <strong>{{request.session.first_name}}</strong>  ji ,Your Bill</p>
+        <table class="table table-responsive" >
+            <thead>
+                <tr>
+                    <th>Sno.</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Shop</th>
+                    <th>Mobile</th>
+                    <th>Date</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {%  for order in orders %}
+                <tr><td>{{forloop.counter0}}</td>
+                    <td><img style="height:80px;" class="rounded-circle" src="/static/cart.jpeg" alt=" "></td>
+
+                   <td>{{order.product.name}}</td>
+                    <td>{{order.product.Shop}}</td>
+                    <td>{{order.product.mobile}}</td>
+                    <td>{{order.date}}</td>
+                    <td>{{order.product.price|currency}}</td>
+                    <td>{{order.quantity}} </td>
+                    <td>{{order.quantity|multiply:order.price|currency}} </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+            <tfoot>
+                <tr>{% if orders|total_cart_price2:request.session.cart < 500 %}
+                    <th colspan="8">Delivery Charges</th>
+                    <th>50</th>
+                    {% else %}
+                     <th colspan="8">Delivery Charges</th>
+                    <th>Free</th>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th colspan="8">Total</th>
+                    <th><strong>{{orders|total_cart_price2:request.session.cart|currency}}</strong></th>
+                </tr>
+            </tfoot>
+        </table>
+           <b> Delivery Date :<br>
+               Delivery Time :  7:00 PM to 9:00 PM<br>
+           Payment Mode     :  COD <br>
+           Delivery Charges :  Free for order more than Rs. 500/- </b><br>
+           <strong>Delivery Charges :  Rs. 50/- per order</strong> </b>
+
+
+     </div>
+</div>
+
+
+<a href="{% url 'index' %}"> << Previous  </a><br>
+<a href="{% url 'profile' %}">Next >> </a><br>
+<a href="{% url 'user_logout' %}">Logout  </a>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+{% endblock  %}
+
+

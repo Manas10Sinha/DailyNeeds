@@ -1,0 +1,34 @@
+{%extends 'base.html'%}
+{% block title %}
+This is about title
+{% endblock title %}
+{% block body%}
+
+
+
+<center><h3><u>Rajesh General Stores</u><br> </h3>
+  <h3><u>List of Items</u><br> </h3>
+
+<<table border="4" >
+            <tr>
+                <th>
+                    Product
+                </th>
+                <th>
+                    Rate
+                </th>
+            </tr>
+     {% for product in products %}
+             <tr>
+                <td>
+                    {{product.name}}
+                </td>
+                 <td>
+                    {{product.price}}
+                 </td>
+            </tr>
+    {% endfor %}
+
+</center>
+
+{%endblock body%}

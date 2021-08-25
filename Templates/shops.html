@@ -1,0 +1,45 @@
+{%extends 'base.html'%}
+{% block title %}
+This is about title
+{% endblock title %}
+{% block body%}
+
+
+
+<center><h3>List of Shops<br> </h3>
+
+<table border="4" >
+            <tr>
+                <th>
+                    Shop Name
+                </th>
+                <td>
+                    Mobile
+                </td>
+            </tr>
+             <tr>
+                <th>
+                    <a href="{% url 'shop1' %}">Rajesh</a>
+                </th>
+                 <td>
+                    Not Available
+            </tr>
+            <tr>
+                <th>
+                    <a href="{% url 'shop2' %}">Chotu</a>
+                </th>
+                <td>
+                   Not Available
+                </td>
+            </tr>
+        </table>
+</center>
+
+
+
+
+
+<!-- Form Bootstrap CSS -->
+
+
+{%endblock body%}
