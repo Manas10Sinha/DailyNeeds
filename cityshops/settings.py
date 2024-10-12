@@ -20,15 +20,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-97e!!#$-hv0mba$aen9u-a24o9h#x3uw4t_xki4ogh14@l+gty'
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = 'django-insecure-97e!!#$-hv0mba$aen9u-a24o9h#x3uw4t_xki4ogh14@l+gty'
+#SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = False
+DEBUG = True
+#DEBUG = False
 
-#ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ["dailyneedsstores.herokuapp.com","localhost"]
+ALLOWED_HOSTS = ['.vercel.app','.now.sh']
+#ALLOWED_HOSTS = ["dailyneedsstores.herokuapp.com","localhost"]
 
 
 
@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+
+
 ]
 
 MIDDLEWARE = [
@@ -83,7 +87,7 @@ WSGI_APPLICATION = 'cityshops.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db8',
+        'NAME': 'db9',
         'USER': 'postgres',
         'PASSWORD': 'pradeep',
         'HOST': 'localhost',
@@ -132,7 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -142,3 +146,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = "/abcd/"
 MEDIA_ROOT = BASE_DIR
 
+
+"""#STATIC_ROOT = BASE_DIR / 'static'
+STATICFILES_DIRS = [
+             os.path.join(BASE_DIR,"static"),
+]"""
+import os
+STATIC_URL = 'static/'
+STATICFILES_DIRS =os.path.join(BASE_DIR,'static'),
+STATIC_ROOT =os.path.join(BASE_DIR,'staticfiles_build','static')

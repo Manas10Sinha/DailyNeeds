@@ -30,7 +30,8 @@ This is about title
             <tbody>
             {%  for product in products %}
                 <tr><td>{{forloop.counter0}}</td>
-                    <td><img style="height:80px;" class="rounded-circle" src="/static/cart.jpeg" alt=" "></td>
+                    <!--<td><img style="height:80px;" class="rounded-circle" src="/static/cart.jpeg" alt=" "></td>-->
+                      <td><img style="height:80px;" class="rounded-circle" src="{{product.image.url}}" alt=" "></td>
                      <td>{{product.locality}}</td>
                     <td>{{product.sub_locality}}</td>
                     <td>{{product.category}}</td>
@@ -40,6 +41,7 @@ This is about title
                     <td>{{product.price|currency}}</td>
                     <td>{{product|cart_quantity:request.session.cart}} </td>                   
                     <td>{{product|price_total:request.session.cart|currency}}</td>
+
                                    
 
                 </tr>
@@ -99,8 +101,8 @@ This is about title
   </div>
 </div>
 
-<center><p><b>!!! Free Delivery for Total amount  <stromg>more</stromg> than Rs. 500/-<br>
-    else, Rs. 50/- per order is payable</b></p></center>
+<center><p><b>!!! Free Delivery for Total amount  <stromg>more</stromg> than ₹ 500/-<br>
+    else, ₹ 50/- per order is payable</b></p></center>
 
 
 

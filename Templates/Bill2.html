@@ -4,17 +4,34 @@ This is about title
 {% endblock title %}
 {% block body%}
 
+<center>
+<form action="" method="post">
+    {% csrf_token %}
+
+    Enter Customer ID:
+        <input type="text" name="customer"><br><br>
+    Enter Date               :
+        <input type="text" name="date"><br>
+    <b>( must be in  YYYY-MM-DD format )</b><br>
+
+        <input type="submit" value="Show" ><br>
+
+</form>
+          </center>
 
 {% load custom_filter%}
 {% load cart %}
+
 <div class="container-fluid">
        <div class="border rounded p-4 m-4">
-           <p class="display-4">Mr./Mrs. <strong>{{request.session.first_name}}</strong>  ji ,Your Bill</p>
+           <center><p class="display-4">Receipt</p><br>{{date}}</center>
+
+           <b class="display-5"><b></b><u>Customer No.</u> <strong>{{customer}}</strong><br><b>Customer Name..</b>{{cname}}<br><b>Address...</b>{{address}}<br><b>Phone No...</b>{{phone}}....</b> </p>
+
         <table class="table table-responsive" >
             <thead>
                 <tr>
                     <th>Sno.</th>
-                    <th>Image</th>
                     <th>Product</th>
                     <th>Shop</th>
                     <th>Mobile</th>
@@ -27,9 +44,8 @@ This is about title
             </thead>
             <tbody>
             {%  for order in orders %}
-                <tr><td>{{forloop.counter}}</td>
-                    <td><img style="height:80px;" class="rounded-circle" src="{{order.product.image.url}}" alt=" "></td>
-                    <!--<td><img style="height:80px;" class="rounded-circle" src=""/static/cart.jpeg" alt=" "></td>-->
+
+            <tr><td>{{forloop.counter}}</td>
                    <td>{{order.product.name}}</td>
                     <td>{{order.product.Shop}}</td>
                     <td>{{order.product.mobile}}</td>
@@ -46,25 +62,24 @@ This is about title
 
             <tfoot>
                 <tr>{% if orders|total_cart_price2:request.session.cart < 500 %}
-                    <th colspan="8">Delivery Charges</th>
+                    <th colspan="7">Delivery Charges</th>
                     <th> ₹ 50</th>
                     {% else %}
-                     <th colspan="8">Delivery Charges</th>
+                     <th colspan="7">Delivery Charges</th>
                     <th>Free</th>
                     {% endif %}
                 </tr>
                 <tr>
-                    <th colspan="8">Total</th>
+                    <th colspan="7">Total</th>
                     <th><strong>{{orders|total_cart_price2:request.session.cart|currency}}</strong></th>
                 </tr>
             </tfoot>
         </table>
-
            <b> Delivery Date :<br>
                Delivery Time :  7:00 PM to 9:00 PM<br>
            Payment Mode     :  COD <br>
            Delivery Charges :  Free for order more than ₹ 500/- </b><br>
-           <strong>Delivery Charges :  ₹ 50/- per order</strong> </b>
+           <strong>Delivery Charges : ₹ 50/- per order</strong> </b>
 
 
      </div>

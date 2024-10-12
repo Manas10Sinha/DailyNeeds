@@ -5,6 +5,7 @@ import datetime
 class Order(models.Model):
     product = models.ForeignKey(Product , on_delete=models.CASCADE)
     customer = models.CharField(max_length=50 , default='')
+    cname = models.CharField(max_length=50 , default='')
     quantity = models.IntegerField(default=1)
     price = models.IntegerField()
     address = models.CharField(max_length=50 , default='' )
@@ -13,6 +14,7 @@ class Order(models.Model):
     status = models.BooleanField(default=False)
     Shop = models.CharField(max_length=200, default='')
     mobile = models.IntegerField(default=0)
+
 
 
     @staticmethod
@@ -26,14 +28,21 @@ class Order(models.Model):
          return Order\
              .objects\
              .filter( date = date )\
-            .order_by('-date')
+            .order_by('-customer')
 
     @staticmethod
-    def get_orders_by_shop(Shop,date):
+    def get_orders_by_shop(Shop,date,customer):
          return Order\
              .objects\
-             .filter( Shop = Shop, date = date)\
-            .order_by('-date')
+             .filter( Shop = Shop, date = date, customer = customer)\
+            .order_by('-customer')
+
+    @staticmethod
+    def get_orders_by_shopno(Shop, date):
+        return Order \
+            .objects \
+            .filter(Shop=Shop, date=date) \
+            .order_by('-customer')
 
     @staticmethod
     def get_orders_by_date(date,customer):
@@ -41,3 +50,9 @@ class Order(models.Model):
              .objects\
              .filter( date = date, customer = customer )\
             .order_by('-date')
+
+
+
+
+    def __str__(self):
+        return self.address

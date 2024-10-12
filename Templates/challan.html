@@ -5,6 +5,7 @@ This is about title
 {% block body%}
 
 <center>
+
 <form action="" method="post">
     {% csrf_token %}
 
@@ -13,9 +14,14 @@ This is about title
             <option value=" ">Select..</option>
             <option value="Rajesh">Rajesh</option>
             <option value="Chotu">Chotu</option>
+            <option value="Motu">Motu</option>
+            <option value="Achhelal">Achhelal</option>
         </select><br><br>
     Enter Date:
-        <input type="text" name="date"><br><br>
+        <input type="text" name="date"><br>
+    <b>( must be in  YYYY-MM-DD format )</b><br>
+    Enter Customer ID:
+        <input type="text" name="customer" ><br>
         <input type="submit" value="Show" ><br>
 
 </form>
@@ -25,21 +31,20 @@ This is about title
 
 {% load custom_filter %}
 <div class="container-fluid">
-       <div class="border rounded p-4 m-4">
-           <p class="display-4"> Challan:</p>
+       <div class="border  p-2 m-2">
+           <center><p class="display-4"><b>...Challan...</p><br>{{date}} </b></center>
+           <b class="display-5"><b></b>  M/s... {{Shop}},<br>Mobile : {{mobile}},<br></b> </p>
         <table class="table">
             <thead>
                 <tr>
                     <th>Sno.</th>
-                    <th>Image</th>
+                    <th>Customer No.</th>
                     <th>Product</th>
-                    <th>Shop </th>
-                    <th>Mobile</th>
-                    <th>Date</th>
+
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
-                    <th>Status</th>
+
 
                 </tr>
             </thead>
@@ -47,29 +52,27 @@ This is about title
             <tbody>
 
             {%  for order in orders %}
-                <tr><td>{{forloop.counter0}}</td>
-                    <td><img style="height:80px;" class="rounded-circle" src="/static/cart.jpeg" alt=" "></td>
+                <tr><td>{{forloop.counter}}</td>
+                    <td><b>{{order.customer}}</b></td>
                     <td>{{order.product.name}}</td>
-                    <td>{{order.product.Shop}}</td>
-                    <td>{{order.product.mobile}}</td>
-                    <td>{{order.date}}</td>
+
                     <td>{{order.product.price|currency}}</td>
                     <td>{{order.quantity}} </td>
                     <td>{{order.quantity|multiply:order.price|currency}} </td>
 
-                    {% if order.status %}
+                    <!--{% if order.status %}
                     <td><small class="badge badge-success">Completed</small> </td>
                     {% else %}
                     <td><small class="badge badge-warning">Pending</small> </td>
-                    {% endif %}
+                    {% endif %}-->
                 </tr>
             {% endfor %}
 
             <tfoot>
                 <tr>
-                    <th colspan="7">Total</th>
+                    <th colspan="4">Total</th>
                      <th></th>
-                    <th>{{orders|total_cart_price2:request.session.cart|currency}}</th>
+                    <th>{{orders|total_cart_price:request.session.cart|currency}}</th>
 
                 </tr>
             </tfoot>

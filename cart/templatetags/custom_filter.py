@@ -2,6 +2,7 @@ from django import template
 
 register = template.Library()
 
+
 @register.filter(name='currency')
 def currency(number):
     return "₹ " + str(number)
@@ -13,3 +14,5 @@ def multiply( number  , number1):
 @register.filter(name='discount')
 def discount( number  , number1):
     return int((number - number1)*100/number)
+
+

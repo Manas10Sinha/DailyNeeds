@@ -14,6 +14,7 @@ def is_in_cart(product,cart):
 @register.filter(name='cart_quantity')
 def cart_quantity(product , cart):
     keys = cart.keys()
+    print(keys)
     for id in keys:
         if int(id) == product.id:
             print('b',product.name)
@@ -59,3 +60,5 @@ def total_cart_price2(orders, cart ):
         return sum+50
     else:
         return sum
+
+
